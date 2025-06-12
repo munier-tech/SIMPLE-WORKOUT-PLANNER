@@ -1,5 +1,4 @@
-
-  {
+{
   "name": "simple-workout-planner",
   "version": "1.0.0",
   "description": "",
@@ -10,9 +9,9 @@
     "start": "node backend/index.js",
     "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
   },
-  
   "dependencies": {
     "bcryptjs": "^3.0.2",
+    "cloudinary": "^2.6.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dayjs": "^1.11.13",
