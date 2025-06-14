@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from 'dotenv';
 import { connectDB } from "./lib/connectDB.js";
 import cookieParser from "cookie-parser";
+import AuthRouter from "./routes/AuthRoute.js";
 import cors from "cors"
 const app = express();
 dotenv.config();
@@ -16,8 +17,7 @@ app.use(cors({
 }))
 
 
-
-
+app.use("/api/auth", AuthRouter);
 
 
 
