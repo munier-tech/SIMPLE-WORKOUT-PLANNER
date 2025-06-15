@@ -1,5 +1,6 @@
 import express from "express"
-import { SignIn, SignUp } from "../controllers/AuthController.js";
+import { LogOut, SignIn, SignUp, WhoAmI } from "../controllers/AuthController.js";
+import { protectedRoute } from "../middlewares/authorization.js";
 const router = express.Router();
 
 
@@ -7,6 +8,8 @@ const router = express.Router();
 
 router.post("/signUp", SignUp)
 router.post("/login", SignIn)
+router.post("/logout", LogOut)
+router.get("/WhoAmI", protectedRoute , WhoAmI)
 
 
 

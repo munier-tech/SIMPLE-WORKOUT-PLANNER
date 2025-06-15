@@ -1,6 +1,8 @@
 import { generateToken } from "../helpers/Authentication.js";
 import cloudinary from "../lib/cloudinary.js";
+import bcrypt from "bcryptjs";
 import User from "../model/UserModel.js";
+import { setCookies } from "../helpers/Authentication.js";
 
 export const SignUp = async  (req, res) => {
   try {
@@ -26,19 +28,21 @@ export const SignUp = async  (req, res) => {
       username,
       password,
       email,
-      profilePicture : cloudinaryResponse.secure_url || "",
+      profilePicture : cloudinaryResponse?.secure_url ? cloudinaryResponse?.secure_url : "no profile picture",
     });
-
-
 
     const accessToken = generateToken(newUser._id);
     setCookies(res, accessToken);
+
+
+    newUser.accessToken = accessToken; 
 
     await newUser.save();
 
     res.status(201).json({ message: "User created successfully" , newUser});    
   } catch (error) {
-    
+    console.error("Error in SignUp function: ", error);
+    res.status(500).json({ message: error.message });
   }
 }
 
@@ -64,11 +68,62 @@ export const SignIn = async (req, res) => {
     if (!comparePassword) {
       return res.status(400).json({ message: "INVALID CREDENTIALS - BOTH EMAIL AND PASSWORD IS INCORRECT" });
     }
+
+
+    const accessToken = generateToken(user._id);
+    await setCookies(res, accessToken);
     
+    const userData = {
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      profilePicture: user.profilePicture,
+    };
+
+
+    res.status(200).json({ message: "User signed in successfully", user: userData });
   } catch (error) {
      console.error("message happening in sign in function " , error)
      res.status(500).json({ message: error.message });
   }
 }
 
+export const WhoAmI = async (req, res ) => {
+  try {
 
+    const user = req.user;
+
+    if (!user) {
+      return res.status(401).json({ message: "unauthorized - User not found" });
+    }
+
+    const userData = {
+      username: user.username,
+      email : user.email,
+      profilePicture: user.profilePicture,
+      _id: user._id,
+    }
+
+    res.status(200).json({ message: "User found successfully", user: userData });
+    
+  } catch (error) {
+    console.error("Error in WhoAmI function: ", error);
+    res.status(500).json({ message: error.message });
+  }
+}
+
+
+export const LogOut = async (req, res) => {
+  try {
+    res.clearCookie("accessToken", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "Strict",
+    });
+
+    res.status(200).json({ message: "User logged out successfully" });
+  } catch (error) {
+    console.error("Error in LogOut function: ", error);
+    res.status(500).json({ message: error.message });
+  }
+};
