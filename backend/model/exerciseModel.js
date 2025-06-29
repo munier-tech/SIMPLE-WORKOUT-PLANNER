@@ -39,6 +39,10 @@ const excerciseSchema = new mongoose.Schema({
     required: true,
     default : 0
   },
+  image : {
+    type : String,
+    default: "https://example.com/default-exercise-image.jpg" // Placeholder image URL
+  },
   isCompleted : {
     type : Boolean,
     default: false

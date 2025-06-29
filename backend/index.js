@@ -4,7 +4,9 @@ import { connectDB } from "./lib/connectDB.js";
 import cookieParser from "cookie-parser";
 import AuthRouter from "./routes/AuthRoute.js";
 import ExerciseRouter from "./routes/ExerciseRoute.js";
+import RoutineRouter from "./routes/RoutineRoute.js";
 import cors from "cors"
+import workoutLog from "./routes/workoutLogRoute.js";
 const app = express();
 dotenv.config();
 
@@ -20,6 +22,8 @@ app.use(cors({
 
 app.use("/api/auth", AuthRouter);
 app.use("/api/Exercise", ExerciseRouter);
+app.use("/api/Routine", RoutineRouter);
+app.use("/api/workoutLog", workoutLog);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
