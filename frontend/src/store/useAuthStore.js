@@ -1,17 +1,27 @@
-import Create from 'zustand';
-import axios from '../lib/axios';
+import {create} from 'zustand';
+import axios from '../lib/axios.js';
 import toast from 'react-hot-toast';
-const useAuthStore = Create ((set, get ) => ({
+export const useAuthStore = create ((set, get ) => ({
   user : null,
   isAuthorized : false,
   isLoading : false,
   authChecked : false,
-  Login : async () => {
+  signUp : async ({username , email , password , confirmPassword}) => {
    try {
+
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match")
+      return
+    }
+    if (!username || !email || !password) {
+      toast.error("All fields are required")
+
+      return
+    }
 
      set({isLoading : true, authChecked : false})
 
-    const res = await axios.post('/auth/login', {
+    const { data } = await axios.post('/auth/signUp', {
      username,
      email,
      password
@@ -19,12 +29,12 @@ const useAuthStore = Create ((set, get ) => ({
 
      set({ 
         isAuthorized: true,
-        user: res.data.user,
+        user: data.user,
         isLoading: false, 
         authChecked: true
        })
-    
-    toast.success('Login successful!')
+
+    toast.success('user  created successfully!')
    } catch (error) {
     toast.error(error?.response?.data?.message || "something went wrong")
     set({isLoading : false , isAuthorized : false})

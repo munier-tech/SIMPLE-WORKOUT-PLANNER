@@ -33,6 +33,10 @@ const UserSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Routine",
   }],
+  WorkoutLogs : {
+    type : mongoose.Schema.Types.ObjectId,
+    ref : "WorkoutLog",
+  },
   role : {
     type : String,
     enum: ["user", "admin"],
