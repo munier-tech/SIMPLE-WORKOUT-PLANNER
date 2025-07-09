@@ -1,12 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuthStore } from '../../store/useAuthStore';
+import { useState } from 'react';
+import { Loader } from 'lucide-react';
 
 const SignInPage = () => {
 
-  const  [formData , setFormData ] = useState()
+  const  [formData , setFormData ] = useState({
+    email : '',
+    password : '',
+  })
 
-  const { signIn , isLoading  } = useAuthStore();
+  const  { signIn , isLoading  } = useAuthStore();
+
+
+  const handleSignIn = async (e) => {
+    e.preventDefault(); // Prevent default form submission
+
+    signIn({ ...formData }); 
+  }
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
 
@@ -21,14 +33,16 @@ const SignInPage = () => {
                 <p className="text-gray-600">Sign in to continue your fitness journey</p>
               </div>
 
-              <form className="space-y-6">
+              <form onSubmit={handleSignIn} className="space-y-6">
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                     Email Address
                   </label>
                   <input
-                    type="email"
+                    type="text"
                     id="email"
+                    value={formData.email}
+                    onChange={e => setFormData({ ...formData , email : e.target.value})}
                     name="email"
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-red-500 focus:ring-1 focus:ring-red-500 transition duration-300"
                     placeholder="john@example.com"
@@ -43,14 +57,11 @@ const SignInPage = () => {
                     type="password"
                     id="password"
                     name="password"
+                    value={formData.password}
+                    onChange={e => setFormData({ ...formData , password : e.target.value})}
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-red-500 focus:ring-1 focus:ring-red-500 transition duration-300"
                     placeholder="••••••••"
                   />
-                  <div className="flex justify-end mt-1">
-                    <Link to="/forgot-password" className="text-sm text-red-500 hover:underline">
-                      Forgot password?
-                    </Link>
-                  </div>
                 </div>
 
                 <div className="flex items-center justify-between">
@@ -68,10 +79,13 @@ const SignInPage = () => {
                 </div>
 
                 <button
+                  disabled={isLoading}
                   type="submit"
-                  className="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-105"
+                  className="w-full bg-red-500 disabled:bg-gray-500  hover:bg-red-600 text-white font-bold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-105"
                 >
-                  Sign In
+                  {isLoading ? ( <span className='flex items-center justify-center'>
+                    <Loader className="w-5 h-5 animate-spin"/> <h1 className='font-bold' >...Logging</h1>
+                    </span>) : 'Sign In'}
                 </button>
 
                 <div className="relative mt-6">

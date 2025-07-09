@@ -46,7 +46,7 @@ export const getAllWorkoutLogs =  async ( req, res ) => {
     res.status(200).json({
       message: "Workout logs retrieved successfully",
       workoutLogs: WorkoutLogs,
-      date
+      date : dayjs('date').format('YYYY-MM-DD'),
     });
   } catch (error) {
     console.error("Error in getAllWorkoutLogs controller:", error);

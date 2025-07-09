@@ -39,5 +39,59 @@ export const useAuthStore = create ((set, get ) => ({
     toast.error(error?.response?.data?.message || "something went wrong")
     set({isLoading : false , isAuthorized : false})
    }
+  },
+  signIn : async ({ email , password }) => {
+   try {
+     set({isLoading : true, authChecked : false})
+
+    const { data } = await axios.post('/auth/login', {
+      email,
+      password
+    })
+    set({ 
+      isAuthorized: true,
+      user: data.user,
+      isLoading: false, 
+      authChecked: true
+     })
+
+     toast.success('logged in successfully!')
+    
+   } catch (error) {
+    toast.error(error?.response?.data?.message || "something went wrong")
+    set({ isLoading : false , isAuthorized : false })
+   }
+  },
+  whoAmi : async () => {
+    try {
+      set({isLoading : true, authChecked : false})
+      const { data } = await axios.get('/auth/WhoAmI')
+      set({ 
+        isAuthorized: true,
+        user: data.user,
+        isLoading: false, 
+        authChecked: true
+       })
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "something went wrong")
+      set({isLoading : false , isAuthorized : false})
+    }
+  },
+  SignOut : async () => {
+    try {
+      set({isLoading : true, authChecked : false})
+      
+      const { data } = await axios.post('/auth/logout')
+      set({
+        isAuthorized: false,
+        user: null,
+        isLoading: false,
+        authChecked: true
+      })
+      toast.success('logged out successfully!')
+    } catch (error) {
+     toast.error(error?.response?.data?.message || "something went wrong")
+     set({isLoading : false , isAuthorized : false}) 
+    }
   }
 }))
