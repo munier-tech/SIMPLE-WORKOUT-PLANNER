@@ -21,7 +21,7 @@ export const CreateExercise = async (req, res) => {
 
    const repsNumber = parseInt(reps, 10);
    if (isNaN(repsNumber) || repsNumber <= 0) {
-    return res.status(400).json({ message: "Invalid sets value. It must be a positive number." });
+    return res.status(400).json({ message: "Invalid reps value. It must be a positive number." });
    }
    
    

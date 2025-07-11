@@ -50,6 +50,10 @@ const excerciseSchema = new mongoose.Schema({
    date : {
     type : Date,
     default: Date.now
+   },
+   routines : {
+    type : mongoose.Schema.Types.ObjectId,
+    ref : "Routine"
    }
 }, {timestamps : true});
 

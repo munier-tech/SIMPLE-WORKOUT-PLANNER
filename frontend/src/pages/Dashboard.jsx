@@ -106,7 +106,7 @@ const Dashboard = () => {
   </div>
   
   <div className="space-y-4">
-  {routine.map((r) => (
+  {(routine || []).map((r) => (
     <Link
       to={`/routines/${r._id}`}
       key={r._id}
