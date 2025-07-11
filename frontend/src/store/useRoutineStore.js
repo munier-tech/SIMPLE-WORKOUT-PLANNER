@@ -62,9 +62,11 @@ export const useRoutineStore = create((set) => ({
   },
   removeExercise: async (routineId, exerciseId) => {
     set({ isLoading: true });
+     console.log("Routine ID:", routineId);
+  console.log("Exercise ID:", exerciseId);
 
     try {
-      const res = await axios.delete(`/Routine/remove/${routineId}/:${exerciseId}`);
+      const res = await axios.delete(`/Routine/remove/${routineId}/${exerciseId}`);
       set({ selectedRoutine: res.data.routine, error: null });
     } catch (err) {
       toast.error(err?.response?.data?.message || "Failed to remove exercise");
