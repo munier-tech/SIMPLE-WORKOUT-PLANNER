@@ -11,6 +11,8 @@ import { useEffect } from 'react';
 import Dashboard from './pages/Dashboard';
 import Routines from './pages/Routines';
 import RoutineDetailPage from './pages/Routines';
+import WorkoutPage from './pages/WorkoutPage';
+import GetWorkoutLogsPage from './pages/getWorkouts';
 
 const App = () => {
   const { user, whoAmi, isLoading } = useAuthStore();
@@ -30,6 +32,8 @@ const App = () => {
         <Route path="/login" element={!user ? <SignInPage /> : <HomePage />} />
         <Route path="/dashboard" element={user ? <Dashboard /> : <SignInPage />} />
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="/workouts" element={<WorkoutPage />} />
+        <Route path="/getWorkouts" element={<GetWorkoutLogsPage />} />
       </Routes>
       </div>
       <Footer />

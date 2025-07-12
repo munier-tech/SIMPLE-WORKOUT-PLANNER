@@ -4,21 +4,29 @@ import Excercise from "../model/exerciseModel.js";
 import mongoose from "mongoose";
 
 
-export const CreateWorkoutLog = async ( req, res ) => {
+export const CreateWorkoutLog = async (req, res) => {
   try {
-    const { routines, isCompleted , note } = req.body;
+    const { routines, isCompleted, note } = req.body;
 
-    if (!routines) {
-      return res.status(400).json({ message: "Routine are required." });
+    if (!routines || !routines.length) {
+      return res.status(400).json({ message: "Routines are required." });
     }
 
+    // Normalize the routines format
+    const normalizedRoutines = routines.map(r => {
+      if (typeof r === 'string') {
+        return { routine: r };
+      }
+      return r; // already in { routine: id } format
+    });
+
     const newWorkoutLog = new workoutLog({
-      user : req.user._id,
-      routines: routines.map(routine => ({ routine })),
-      isCompleted,
+      user: req.user._id,
+      routines: normalizedRoutines,
+      isCompleted: isCompleted || false,
       note: note || "No notes provided",
-      date : dayjs().startOf('day').toDate(), 
-    })
+      date: dayjs().startOf('day').toDate(),
+    });
 
     await newWorkoutLog.save();
 
@@ -27,16 +35,17 @@ export const CreateWorkoutLog = async ( req, res ) => {
       workoutLog: newWorkoutLog,
     });
   } catch (error) {
-   console.error("Error in CreateWorkoutLog controller:", error);
-    return res.status(500).json({ message: error.message }); 
+    console.error("Error in CreateWorkoutLog controller:", error);
+    return res.status(500).json({ message: error.message });
   }
-}
+};
 
-export const getAllWorkoutLogs =  async ( req, res ) => {
+export const getAllWorkoutLogs = async (req, res) => {
   try {
 
 
-    const WorkoutLogs = await workoutLog.find()
+    const WorkoutLogs = await workoutLog.find().populate("routines.routine", "name description")
+
 
     if (!WorkoutLogs || WorkoutLogs.length === 0) {
       return res.status(404).json({ message: "No workout logs found" });

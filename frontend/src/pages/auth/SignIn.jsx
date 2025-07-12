@@ -44,7 +44,7 @@ const SignInPage = () => {
                     value={formData.email}
                     onChange={e => setFormData({ ...formData , email : e.target.value})}
                     name="email"
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-red-500 focus:ring-1 focus:ring-red-500 transition duration-300"
+                    className="w-full px-4 py-3 rounded-lg text-black  border border-gray-300 focus:border-red-500 focus:ring-1 focus:ring-red-500 transition duration-300"
                     placeholder="john@example.com"
                   />
                 </div>
@@ -59,7 +59,7 @@ const SignInPage = () => {
                     name="password"
                     value={formData.password}
                     onChange={e => setFormData({ ...formData , password : e.target.value})}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-red-500 focus:ring-1 focus:ring-red-500 transition duration-300"
+                    className="w-full px-4 py-3 text-black rounded-lg border border-gray-300 focus:border-red-500 focus:ring-1 focus:ring-red-500 transition duration-300"
                     placeholder="••••••••"
                   />
                 </div>

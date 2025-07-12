@@ -50,7 +50,7 @@ const SignUpPage = () => {
                       onChange={(e) => {
                         setFormData({ ...formData , username : e.target.value})
                       }}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-red-500 focus:ring-1 focus:ring-red-500 transition duration-300"
+                      className="w-full px-4 py-3 text-black rounded-lg border border-gray-300 focus:border-red-500 focus:ring-1 focus:ring-red-500 transition duration-300"
                       placeholder="Khaalid"
                     />
                 </div>
@@ -67,7 +67,7 @@ const SignUpPage = () => {
                     onChange={(e) => {
                     setFormData({ ...formData , email : e.target.value})
                     }}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-red-500 focus:ring-1 focus:ring-red-500 transition duration-300"
+                    className="w-full px-4 py-3 text-black rounded-lg border border-gray-300 focus:border-red-500 focus:ring-1 focus:ring-red-500 transition duration-300"
                     placeholder="john@example.com"
                   />
                 </div>
@@ -84,7 +84,7 @@ const SignUpPage = () => {
                     onChange={(e) => {
                     setFormData({ ...formData , password : e.target.value})
                     }}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-red-500 focus:ring-1 focus:ring-red-500 transition duration-300"
+                    className="w-full px-4 py-3 text-black rounded-lg border border-gray-300 focus:border-red-500 focus:ring-1 focus:ring-red-500 transition duration-300"
                     placeholder="••••••••"
                   />
                   <p className="mt-1 text-xs text-gray-500">Must be at least 8 characters</p>
@@ -102,7 +102,7 @@ const SignUpPage = () => {
                     onChange={(e) => {
                     setFormData({ ...formData , confirmPassword : e.target.value})
                     }}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-red-500 focus:ring-1 focus:ring-red-500 transition duration-300"
+                    className="w-full px-4 py-3 text-black rounded-lg border border-gray-300 focus:border-red-500 focus:ring-1 focus:ring-red-500 transition duration-300"
                     placeholder="••••••••"
                   />
                 </div>
