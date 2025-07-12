@@ -7,10 +7,14 @@ import ExerciseRouter from "./routes/ExerciseRoute.js";
 import RoutineRouter from "./routes/RoutineRoute.js";
 import cors from "cors"
 import workoutLog from "./routes/workoutLogRoute.js";
+import path from "path"
+
 const app = express();
 dotenv.config();
 
 const PORT = process.env.PORT || 9000;
+
+const __dirname = path.resolve()
 
 app.use(express.json());
 app.use(cookieParser())
