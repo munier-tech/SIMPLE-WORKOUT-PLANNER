@@ -14,7 +14,7 @@ router.delete("/delete/:workoutId", protectedRoute  ,  deleteWorkoutLog);
 router.post("/addExercise/:workoutId/:exerciseId", protectedRoute  ,  addExerciseToWorkoutLog);
 router.post("/removeExercise/:workoutId/:exerciseId", protectedRoute  ,  removeExerciseFromWorkoutLog);
 router.put("/complete/:workoutId", protectedRoute  ,  markWorkoutLogAsCompleted);
-router.get("/:date", protectedRoute  ,  getWorkoutLogsByDate);
+router.get("/byDate/:date", protectedRoute  ,  getWorkoutLogsByDate);
 
 
 
